@@ -1,4 +1,4 @@
-const listaDeJogos = [
+let listaDeJogos = JSON.parse(localStorage.getItem('meusJogosSalvos')) || [
     {
         nome: "Red Dead Redemption 2",
         capa: "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg",
@@ -54,55 +54,49 @@ $(document).ready(function () {
     exibirJogos(listaDeJogos);
 
 
-    $('#btn-buscar').click(function()
-    {
-        const nomeJogo=$('#nome').val();
-        
-        const api='395b8254e7bb4ceeb78a24447dae43b4';
+    $('#btn-buscar').click(function () {
+        const nomeJogo = $('#nome').val();
 
-        if(nomeJogo==='')
-            {
-                alert('Digite o nome do jogo primeiro!');
-                return;
-            }
+        const api = '395b8254e7bb4ceeb78a24447dae43b4';
+
+        if (nomeJogo === '') {
+            alert('Digite o nome do jogo primeiro!');
+            return;
+        }
 
         const botao = $(this);
         const textoOriginal = botao.text();
-        botao.text('Buscando...').prop('disabled',true);
+        botao.text('Buscando...').prop('disabled', true);
 
         const url = `https://api.rawg.io/api/games?key=${api}&search=${nomeJogo}`;
 
         $.ajax({
             url: url,
             method: 'GET',
-            success: function(resposta) 
-            {
-                if(resposta.results.length>0)
-                    {
-                        const jogo = resposta.results[0];
+            success: function (resposta) {
+                if (resposta.results.length > 0) {
+                    const jogo = resposta.results[0];
 
-                        $('#img-preview').attr('src',jogo.background_image);
+                    $('#img-preview').attr('src', jogo.background_image);
 
-                        $('#url-imagem-final').val(jogo.background_image);
+                    $('#url-imagem-final').val(jogo.background_image);
 
-                        $('#nome').val(jogo.name);
+                    $('#nome').val(jogo.name);
 
-                    }
-                else 
-                    {
-                        alert('Jogo não encontrado! tente outro nome!');
-                    }
+                }
+                else {
+                    alert('Jogo não encontrado! tente outro nome!');
+                }
 
-                
+
             },
-        
-        error: function()
-        {
-            alert('Erro de conexão. Verifique a internet!');
-        },
 
-        complete: function() {
-                
+            error: function () {
+                alert('Erro de conexão. Verifique a internet!');
+            },
+
+            complete: function () {
+
                 botao.text(textoOriginal).prop('disabled', false);
             }
         });
@@ -112,4 +106,25 @@ $(document).ready(function () {
 });
 
 
+$('#form-jogo').submit(function (evento) {
+    evento.preventDefault();
 
+    const nome = $('#nome').val();
+    const capa = $('#url-imagem-final').val() || 'https://placehold.co/600x400?text=Sem+Capa';
+    const status = $('#status').val();
+    const textoSelect = $('#status option:selected').text();
+
+    const novoJogo =
+    {
+        nome: nome,
+        capa: capa,
+        status: status,
+        rotulo: textoSelect
+    };
+
+    listaDeJogos.push(novoJogo);
+    localStorage.setItem('meusJogosSalvos', JSON.stringify(listaDeJogos));
+    alert('Jogo salvo com sucesso!');
+    window.location.href = 'index.html';
+
+});
