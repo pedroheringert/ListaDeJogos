@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Adicionar Jogos</title>
+</head>
+
+
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="menu-item">Lista de Jogos</a>
+            <a href="adicionar.html" class="menu-item ativo">Adicionar Novo</a>
+        </nav>
+    </header>
+
+
+    <main class="container-formulario">
+        <h2>Adicionar novo Jogo: </h2>
+        <form>
+            <div class="grupo-input">
+                <label for="nome">Nome do jogo: </label>
+                <div class="input-com-acao">
+                    <input type="text" id="nome" placeholder="Ex: Red dead Redemption 2" required>
+                    <button type="button" id="btn-buscar">🔍 Buscar Capa</button>
+                </div>
+            </div>
+
+            <div class="preview-container">
+                <p>Capa encontrada:</p>
+                <img id="img-preview" src="https://placehold.co/600x400?text=Capa+do+Jogo" alt="Preview da Capa">
+            </div>
+
+            <div class="grupo-input">
+                <label for="status">Status do jogo</label>
+                <select id="status">
+                    <option value="comprar">Pretendemos Comprar</option>
+                    <option value="pendente">Vamos Jogar (Fila)</option>
+                    <option value="jogando">Jogando Agora</option>
+                    <option value="zerado">Zeramos</option>
+                </select>
+            </div>
+
+            <input type="hidden" id="url-imagem-final" name="url_imagem">
+            <button type="submit" class="btn-salvar">Adicionar à Lista</button>
+
+        </form>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>  
+</body>
+
+</html>

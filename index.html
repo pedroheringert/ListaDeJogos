@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Lista</title>
+</head>
+
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="menu-item ativo">Lista de Jogos</a> <a href="adicionar.html"
+                class="menu-item">Adicionar Novo</a>
+        </nav>
+    </header>
+
+    <div class="container-filtros">
+        <div class="input-busca">
+            <input type="text" id="busca" placeholder="Ex: Red dead Redemption 2">
+            <span class="icone-lupa">🔍</span>
+        </div>
+        
+        <select id="filtro-status">
+            <option value="todos">Todos</option>
+            <option value="comprar">Pretendemos Comprar</option>
+            <option value="pendente">Vamos Jogar (Fila)</option>
+            <option value="jogando">Jogando Agora</option>
+            <option value="zerado">Zeramos</option>
+        </select> 
+    </div>
+
+    <div id="jogos" class="jogos-grid">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>    
+
+</body>
+
+</html>

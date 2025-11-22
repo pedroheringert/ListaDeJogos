@@ -1,0 +1,223 @@
+/* =========================================
+   1. ESTILOS GERAIS (Vale para o site todo)
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Isso impede que o padding estoure o tamanho */
+}
+
+body {
+    background-color: #1a1a1a;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+header {
+    background-color: #2c2c2c;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: #aaa;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.menu-item:hover {
+    color: white;
+}
+
+.menu-item.ativo {
+    color: #ffcc00; /* Amarelo destaque */
+    border-bottom: 2px solid #ffcc00;
+}
+
+/* =========================================
+   2. PÁGINA HOME (index.html)
+   ========================================= */
+.jogos-grid {
+    display: grid;
+    /* Aqui está o código que faltava para organizar os cards */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.card-jogo {
+    /* Aqui está o estilo visual do card que faltava */
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.card-jogo:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.capa {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+}
+
+.info {
+    padding: 15px;
+}
+
+.info h3 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+/* --- ESTILOS DA BARRA DE FILTROS --- */
+.container-filtros {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;          /* Coloca um ao lado do outro */
+    align-items: center;    /* Centraliza verticalmente */
+    gap: 15px;              /* Espaço entre a busca e o filtro */
+}
+
+.input-busca {
+    flex: 1; /* Ocupa todo o espaço DISPONÍVEL (mas respeita o vizinho) */
+    position: relative;
+}
+
+.input-busca input {
+    width: 100%; /* Ocupa 100% do pai (.input-busca), e não da tela toda */
+    padding: 12px 40px 12px 15px;
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none; /* Remove a borda azul padrão do navegador */
+}
+
+.input-busca .icone-lupa {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #aaa;
+}
+
+#filtro-status {
+    padding: 12px 15px; /* Mesma altura do input para ficar alinhado */
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    
+    /* O TRUQUE PARA NÃO SUMIR: */
+    min-width: 200px; /* Força um tamanho mínimo */
+    flex-shrink: 0;   /* Proíbe ele de ser esmagado pela busca */
+}
+
+/* --- REFINAMENTO DAS CORES DE STATUS (BADGES) --- */
+/* Isso aqui vai diferenciar visualmente o status de cada jogo nos cards */
+
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px; /* Borda redondinha estilo "pill" */
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+/* Cores Específicas */
+.status.jogando {
+    background-color: rgba(40, 167, 69, 0.2); /* Fundo verde transparente */
+    color: #2ecc71; /* Texto verde neon */
+    border: 1px solid #2ecc71;
+}
+
+.status.pendente {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+.status.zerado {
+    background-color: rgba(23, 162, 184, 0.2);
+    color: #17a2b8;
+    border: 1px solid #17a2b8;
+}
+
+.status.abandonado {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+/* =========================================
+   3. PÁGINA ADICIONAR (adicionar.html)
+   ========================================= */
+.container-formulario {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.preview-container {
+    border: 2px dashed #444;
+}
+
+/* =========================================
+   AJUSTES DO PREVIEW (Adicione no style.css)
+   ========================================= */
+
+.container-formulario {
+    max-width: 600px;      /* Largura máxima do formulário */
+    margin: 30px auto;     /* Centraliza na tela */
+    padding: 20px;
+    background-color: #2c2c2c; /* Fundo cinza do card */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.preview-container {
+    margin: 20px 0;
+    text-align: center;    /* Centraliza a imagem e o texto */
+    background-color: #1a1a1a; /* Fundo mais escuro atrás da imagem */
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px dashed #444;
+}
+
+.preview-container p {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+#img-preview {
+    max-width: 100%;       /* Garante que não vaze para os lados */
+    height: 300px;         /* Altura fixa para ficar padronizado */
+    object-fit: cover;     /* O Segredo: corta as bordas para preencher sem esticar */
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    display: block;
+    margin: 0 auto;        /* Garante centralização */
+}
