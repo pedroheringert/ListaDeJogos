@@ -1,23 +1,22 @@
-let listaDeJogos = JSON.parse(localStorage.getItem('meusJogosSalvos')) || [
-    {
-        nome: "Red Dead Redemption 2",
-        capa: "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg",
-        status: "jogando",
-        rotulo: "Jogando Agora"
-    },
-    {
-        nome: "Minecraft",
-        capa: "https://media.rawg.io/media/games/b4e/b4e4c73d5aa4ec66bbf75375c4847a2b.jpg",
-        status: "pendente",
-        rotulo: "Vamos Jogar"
-    },
-    {
-        nome: "Elden Ring",
-        capa: "https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phvVT0qZfcRms5qDAk0SI3CM.png",
-        status: "zerado",
-        rotulo: "Zeramos"
-    }
-];
+function carregarJogosBanco() {
+    const container = $('#jogos');
+
+    if (container.length === 0) return;
+
+    container.html('<p style="color:#aaa; text-align:center; margin-top:20px">Carregando Lista de jogos</p>');
+
+    $.ajax({
+        url: 'listar_jogos.php',
+        method: 'GET',
+        datatype: 'json',
+        success: function (lista) {
+            exibirJogos(lista);
+        },
+        error: function () {
+            container.html('<p style="color:red; text-align:center">Erro ao conectar com o servidor.</p>');
+        }
+    });
+}
 
 
 function exibirJogos(lista) {
@@ -51,7 +50,7 @@ function exibirJogos(lista) {
 
 
 $(document).ready(function () {
-    exibirJogos(listaDeJogos);
+    carregarJogosBanco();
 
 
     $('#btn-buscar').click(function () {
@@ -109,22 +108,44 @@ $(document).ready(function () {
 $('#form-jogo').submit(function (evento) {
     evento.preventDefault();
 
-    const nome = $('#nome').val();
-    const capa = $('#url-imagem-final').val() || 'https://placehold.co/600x400?text=Sem+Capa';
-    const status = $('#status').val();
-    const textoSelect = $('#status option:selected').text();
+    const dados = {
 
-    const novoJogo =
-    {
-        nome: nome,
-        capa: capa,
-        status: status,
-        rotulo: textoSelect
-    };
+        nome: $('#nome').val(),
+        capa: $('#url-imagem-final').val() || 'https://placehold.co/600x400?text=Sem+Capa',
+        status: $('#status').val(),
+        rotulo: $('#status option:selected').text()
 
-    listaDeJogos.push(novoJogo);
-    localStorage.setItem('meusJogosSalvos', JSON.stringify(listaDeJogos));
-    alert('Jogo salvo com sucesso!');
-    window.location.href = 'index.html';
+    }
+
+
+    const btnSalvar = $('.btn-salvar');
+    btnSalvar.html('Salvando no banco...').prop('disabled',true);
+
+
+    $.ajax({
+        url: 'Salvar_jogo.php',
+        method: 'POST',
+        dataType: 'json',
+        data: dados,
+        success: function (resposta)
+        {
+            if(resposta.sucesso)
+                {
+                    alert('sucesso!' + resposta.mensagem);
+                    window.location.href = 'index.html';
+                } else 
+                    {
+                        alert('Erro do PHP'+ resposta.erro);
+                    }
+        },
+        error: function()
+        {
+            alert('Erro grave ao tentar atualizar o banco!');
+        },
+        complete: function ()
+        {
+            btnSalvar.text('Adicionar à lista').prop('disabled', false);
+        }
+    });    
 
 });
