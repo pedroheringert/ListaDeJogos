@@ -39,6 +39,12 @@ function exibirJogos(lista) {
                 <div class="info">
                     <h3>${jogo.nome}</h3>
                     <span class="status ${jogo.status}">${jogo.rotulo}</span>
+                    <div id="delEdit">
+                       <div class="acoes-card">
+                         <button type="button" class="btn-editar" data-id="${jogo.id}">✏️</button>
+                        <button type="button" class="btn-excluir" data-id="${jogo.id}">🗑️</button>
+                       </div>
+                    <div>
                 </div>
             </div>
         `;
@@ -119,7 +125,7 @@ $('#form-jogo').submit(function (evento) {
 
 
     const btnSalvar = $('.btn-salvar');
-    btnSalvar.html('Salvando no banco...').prop('disabled',true);
+    btnSalvar.html('Salvando no banco...').prop('disabled', true);
 
 
     $.ajax({
@@ -127,25 +133,20 @@ $('#form-jogo').submit(function (evento) {
         method: 'POST',
         dataType: 'json',
         data: dados,
-        success: function (resposta)
-        {
-            if(resposta.sucesso)
-                {
-                    alert('sucesso!' + resposta.mensagem);
-                    window.location.href = 'index.html';
-                } else 
-                    {
-                        alert('Erro do PHP'+ resposta.erro);
-                    }
+        success: function (resposta) {
+            if (resposta.sucesso) {
+                alert('sucesso!' + resposta.mensagem);
+                window.location.href = 'index.html';
+            } else {
+                alert('Erro do PHP' + resposta.erro);
+            }
         },
-        error: function()
-        {
+        error: function () {
             alert('Erro grave ao tentar atualizar o banco!');
         },
-        complete: function ()
-        {
+        complete: function () {
             btnSalvar.text('Adicionar à lista').prop('disabled', false);
         }
-    });    
+    });
 
 });

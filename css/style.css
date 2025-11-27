@@ -173,6 +173,12 @@ nav {
     border: 1px solid #dc3545;
 }
 
+.status.comprar {
+    background-color: rgba(153, 50, 204, 0.2);
+    color: #d7bde2;
+    border: 1px solid #9b59b6;
+}
+
 /* =========================================
    3. PÁGINA ADICIONAR (adicionar.html)
    ========================================= */
